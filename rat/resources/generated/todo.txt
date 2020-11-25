@@ -1,0 +1,2 @@
+location for saving generated clips.
+delete on upload 
