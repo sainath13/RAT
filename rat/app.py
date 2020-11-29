@@ -8,7 +8,8 @@ class rat:
     #def __init__(self):
     #    print("Hello from init")
     def run(self):
-        if(listdir(env.download_location) == []):
+        print(listdir(env.download_location))
+        if(listdir(env.download_location) == ['.keep']):
             print("No files to process, please download new files in Twitch leecher")
             firebae.get_streams()
             exit()
