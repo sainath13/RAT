@@ -10,6 +10,8 @@ import os, re, os.path
 import glob
 import sys
 reader = easyocr.Reader(['ch_sim','en'])
+from upload import megauploader
+
 
 class clipmaker:
 
@@ -17,6 +19,8 @@ class clipmaker:
         print("initializing")
 
     def clip(self):
+        print("Clipping")
+        firebae.mark_clipping(env.config["STREAM"]["streamid"])
         current_frame = 0
         frame_check_rate = 60
         start_minus = 20
@@ -35,7 +39,7 @@ class clipmaker:
         print("framenumber is ",stream["framenumber"])
         framenumber = int(stream["framenumber"])
         cam = cv2.VideoCapture(stream["filename"])
-       
+         
         if(framenumber > 0):
             temp_frame = 0
             while(temp_frame < framenumber):
@@ -47,6 +51,7 @@ class clipmaker:
         while(True):
             ret, frame = cam.read()
             if ret:
+                print("True")
                 name = env.frames_location + str(current_frame) + '.jpg'
                 if(current_frame%frame_check_rate == 0):
                     status = cv2.imwrite(name,frame)
@@ -75,8 +80,9 @@ class clipmaker:
                             end_time = latest_knockdown_time + end_plus
                             start_time = start_time - start_minus
                             print("Making a clip from" + str(start_time) + "to" + str(end_time))
-                            ffmpeg_extract_subclip(stream["filename"],start_time,end_time,targetname=
-                                    env.clips_location+"Knock_"+str(env.config["STREAM"]["streamer"])+"_"+str(env.config["STREAM"]["streamid"]) + "_"+ str(start_time) + "_" + str(end_time) + ".mov")
+                            filename = "Knock_" + str(env.config["STREAM"]["streamer"] + "_" + str(env.config["STREAM"]["streamid"]+"_"+str(start_time)+"_"+str(end_time)+".mp4"))
+                            ffmpeg_extract_subclip(stream["filename"],start_time,end_time,targetname=env.clips_location+filename)
+                            megauploader.upload_clip_to_mega(filename)
                             is_clip = False
 
                 if(current_frame%1000 == 0):
@@ -92,7 +98,10 @@ class clipmaker:
                 if(is_clip):
                     end_time = latest_knockdown_time + end_plus
                     start_time = start_time - start_minus
-                    ffmpeg_extract_subclip(stream["filename"],start_time,end_time,targetname="Knock"+str(start_time)+".mov")
+                    print("Making a clip from" + str(start_time) + "to" + str(end_time))
+                    filename = "Knock_" + str(env.config["STREAM"]["streamer"] + "_" + str(env.config["STREAM"]["streamid"]+"_"+str(start_time)+"_"+str(end_time)+".mp4"))
+                    ffmpeg_extract_subclip(stream["filename"],start_time,end_time,targetname=filename)
+                    megauploader.upload_clip_to_mega(filename)
                     break
                 break
 

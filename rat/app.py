@@ -41,7 +41,6 @@ class rat:
                     env.config.write(configfile)
                 
             #run this in a loop
-            print("running for file :" )
         print("finished processing all the files. download some files now")
         print("Update status to server")
         exit()
