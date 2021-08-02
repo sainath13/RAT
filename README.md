@@ -6,4 +6,5 @@ Clipper for Apex legends videos
 - Picks up all twitch stream videos downloaded by twitch leecher
 - Extracts short clips from the twitch streams.
 - Uploads clips to mega
-- updates details in the firebase so that multiple users can run the app simultaneously without picking up the same twitch streams.
+- Updates details in the firebase so that multiple users can run the app simultaneously without picking up the same twitch streams.
+- Supports configurations for the extracted clips like pre-knockdown fight duration, post-knockdown fight duration, clutch fights duration 
