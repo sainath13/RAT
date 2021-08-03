@@ -8,3 +8,6 @@ Clipper for Apex legends videos
 - Uploads clips to mega
 - Updates details in the firebase so that multiple users can run the app simultaneously without picking up the same twitch streams.
 - Supports configurations for the extracted clips like pre-knockdown fight duration, post-knockdown fight duration, clutch fights duration 
+
+# Project Report
+https://github.com/sainath13/RAT/blob/main/Montage%20Wizard%20Project%20report.pdf
